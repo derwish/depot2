@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
 	fixtures :products
+
 	test "product attributes must not be empty" do
 		product = Product.new
 		assert product.invalid?
@@ -12,7 +13,7 @@ class ProductTest < ActiveSupport::TestCase
 	end
 
 	test "product price must be positive" do
-		product = Product.new( title:'123', description: 'qweqwe', image_url: '123.jpg' )
+		product = Product.new( title:'morethanten', description: 'qweqwe', image_url: '123.jpg' )
 		product.price = -1
 		assert product.invalid?
 		assert_equal "must be greater than or equal to 0.01",
@@ -33,7 +34,7 @@ class ProductTest < ActiveSupport::TestCase
 					price: 1,
 					image_url: image_url)
 	end
-	
+
 	test "image url" do
 		ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
 		bad = %w{ fred.doc fred.gif/more fred.gif.more }
