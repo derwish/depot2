@@ -9,4 +9,16 @@ private
 		session[:cart_id] = cart.id
 		cart
 	end
+
+	def add_visit
+		session[:counter] ? session[:counter] += 1 : session[:counter] = 0
+	end
+
+	def reset_visit
+		session[:counter] = 0
+	end
+	
+	def get_visit
+		session[:counter] ? session[:counter] : 0
+	end
 end
