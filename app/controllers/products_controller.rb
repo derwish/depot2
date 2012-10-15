@@ -1,4 +1,15 @@
 class ProductsController < ApplicationController
+
+  def who_bought
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.xml
+      format.atom
+      format.json { render json: @product.to_json(include: :orders) }
+    end
+  end
+
   # GET /products
   # GET /products.json
   def index
@@ -13,12 +24,18 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    @product = Product.find(params[:id])
+    begin
+      @product = Product.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @product }
-    end
+      rescue ActiveRecord::RecordNotFound
+        logger.error "Attempt to access product #{params[:id]}"
+        redirect_to products_path, notice: 'Incorect product'
+      else
+        respond_to do |format|
+          format.html # show.html.erb
+          format.json { render json: @product }
+        end
+      end
   end
 
   # GET /products/new

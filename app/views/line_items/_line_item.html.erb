@@ -1,0 +1,25 @@
+<% if line_item == @current_item %>
+  <tr id='current_item'>
+<% else %>
+  <tr>
+<% end %>
+
+  <td><%= line_item.quantity %>&times;</td>
+  <td><%= line_item.product.title %></td>
+  <td class='item_price'><%= number_to_currency(line_item.total_price) %></td>
+
+<!--  <%= @remote_x_button = line_item.cart.products_quantity != 1 %> -->
+<!--  <%= @remote_dash_button = line_item.cart.total_quantity != 1 %> -->
+
+  <td><%= button_to 'x', line_item, method: :delete, remote: @remote_x_button %></td>
+  <td><%= button_to '-', 
+    { controller: 'line_items', action: 'update', id: line_item.id, to_add: -1, product_id: line_item.product.id }, 
+    method: :put, 
+    remote: @remote_dash_button %>
+  </td>
+  <td><%= button_to '+', 
+    { controller: 'line_items', action: 'update', id: line_item.id, to_add: 1, product_id: line_item.product.id }, 
+    method: :put, 
+    remote:true %>
+  </td>
+</tr>

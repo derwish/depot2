@@ -16,9 +16,5 @@ private
 
 	def reset_visit
 		session[:counter] = 0
-	end
-	
-	def get_visit
-		session[:counter] ? session[:counter] : 0
-	end
+	end	
 end

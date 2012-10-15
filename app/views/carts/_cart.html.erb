@@ -1,0 +1,19 @@
+<div class="cart_title">Your Cart</div>
+<table>
+  <%= render(cart.line_items) %>
+
+  <tr class="total_line">
+    <td colspan="2">Total</td>
+    <td class="total_cell"><%= number_to_currency(cart.total_price) %></td>
+  </tr>
+  <tr class="total_line">  	
+    <td colspan="2">Item<% if cart.total_quantity > 1 %>s<% end %></td>
+    <td class="total_cell"><%= cart.total_quantity %></td>
+  </tr>
+</table>
+
+<!--  <%= @checkout_disabled = current_page?(new_order_path) == true %> -->
+<!--  <%= @remote_empty_cart = current_page?(new_order_path) == false %> -->
+
+  <%= button_to 'Checkout', new_order_path, method: :get, disabled: @checkout_disabled %>
+  <%= button_to 'Empty cart', cart, method: :delete, confirm: 'Are you sure?', remote: @remote_empty_cart %>

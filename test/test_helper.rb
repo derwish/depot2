@@ -9,5 +9,12 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
+  def assert_size(collection, size, message = nil)
+    message ||= "expected #{collection.inspect} to have #{size} elements but instead had #{collection.size}"
+    assert_block message do
+      collection.size == size
+    end
+  end
+  
   # Add more helper methods to be used by all tests here...
 end
